@@ -1,0 +1,3 @@
+[submodule "chatllm.cpp"]
+	path = chatllm.cpp
+	url = https://github.com/blime4/chatllm.cpp.git
