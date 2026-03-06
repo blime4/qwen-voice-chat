@@ -113,6 +113,27 @@ T/boooook/
 4. ⏳ 实现 Swift-C++ 桥接
 5. ⏳ 开发 iOS UI
 
+---
+
+## Phase 2 启动 (2026-03-07)
+
+### 实施计划
+详见: `docs/plans/2026-03-07-phase2-ios-tts-app.md`
+
+### Phase 2 任务清单
+- [ ] Task 1-2: 创建 Xcode 项目结构
+- [ ] Task 3-4: 设计并实现 C API Bridge
+- [ ] Task 5-6: Swift Wrapper + Audio Player
+- [ ] Task 7-8: UI 集成 + Xcode 项目配置
+- [ ] Task 9: 集成真实 chatllm.cpp TTS
+- [ ] Task 10-11: 模型导入 + 单元测试
+- [ ] Task 12-14: iOS 构建 + 文档
+
+### 前置条件
+- **Mac with Apple Silicon** (M1/M2/M3) for Metal acceleration
+- **Xcode 15+** with iOS 17 SDK
+- **TTS Model** downloaded: `qwen3-tts-12hz-0.6b-base.bin` (~1.2GB)
+
 ## 验收状态
 
 - [x] chatllm.cpp 编译成功
