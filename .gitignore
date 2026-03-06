@@ -1,0 +1,17 @@
+# Models (large files)
+models/*.bin
+models/*.gguf
+
+# Output files
+output/*.pcm
+output/*.wav
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Logs
+*.log
