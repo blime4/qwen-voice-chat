@@ -1,0 +1,5 @@
+module ChatLLMBridge {
+    header "../include/chatllm_bridge.h"
+    link "ChatLLMBridge"
+    export *
+}
