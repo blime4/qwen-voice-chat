@@ -15,3 +15,10 @@ output/*.wav
 
 # Logs
 *.log
+
+# iOS build artifacts
+ios/AudiobookApp/.build/
+ios/AudiobookApp/build/
+ios/AudiobookApp/.swiftpm/xcode/package.xcworkspace/
+ios/AudiobookApp/.swiftpm/xcode/xcuserdata/
+ios/AudiobookAppFinal/.build/
