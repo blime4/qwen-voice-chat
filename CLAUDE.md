@@ -96,19 +96,40 @@ ffmpeg -y -f s16le -ar 24000 -ac 1 -i output/audio.pcm output/audio.wav
 
 ## Models
 
-| Model | File | Size | Purpose |
-|-------|------|------|---------|
-| Qwen3-0.6B | `qwen3-0.6b.bin` | ~610MB | Dialogue generation |
-| Qwen3-ASR-0.6B | `qwen3-asr-0.6b.bin` | ~960MB | Speech recognition |
-| Qwen3-TTS-0.6B | `qwen3-tts-12hz-0.6b-base.bin` | ~1.2GB | Speech synthesis |
+This project uses **chatllm.cpp** (https://github.com/foldl/chatllm.cpp), NOT llama.cpp. chatllm.cpp uses **GGML format** (`.bin` files), which is different from llama.cpp's GGUF format.
 
-**Download models:**
+### Source Models (HuggingFace safetensors)
+| Model | Architecture | Source Location | Purpose |
+|-------|--------------|-----------------|---------|
+| Qwen3-0.6B | `Qwen3ForCausalLM` | `/Volumes/Expansion/models/Qwen3-0.6B` | Dialogue generation |
+| Qwen3-ASR-0.6B | `Qwen3ASRForConditionalGeneration` | `/Volumes/Expansion/models/Qwen3-ASR-0.6B` | Speech recognition |
+| Qwen3-TTS-12Hz-0.6B-Base | `Qwen3TTSForConditionalGeneration` | `/Volumes/Expansion/models/Qwen3-TTS-12Hz-0.6B-Base` | Speech synthesis |
+
+### Converting Models to GGML Format
+
+**Prerequisite:** Clone chatllm.cpp to get the conversion tools:
 ```bash
+git clone --recursive https://github.com/foldl/chatllm.cpp.git
 cd chatllm.cpp
-python scripts/model_downloader.py -m qwen3:0.6b:q4_k_m -o ../models/
-python scripts/model_downloader.py -m qwen3-asr:0.6b:q8 -o ../models/
-python scripts/model_downloader.py -m qwen3-tts:0.6b-base:q8 -o ../models/
+pip install -r requirements.txt
 ```
+
+**Convert each model:**
+```bash
+# Qwen3 LLM
+python convert.py -i /Volumes/Expansion/models/Qwen3-0.6B -t q8_0 -o /Volumes/Expansion/models/qwen3-0.6b.bin --name Qwen3
+
+# Qwen3 ASR
+python convert.py -i /Volumes/Expansion/models/Qwen3-ASR-0.6B -t q8_0 -o /Volumes/Expansion/models/qwen3-asr-0.6b.bin --name Qwen3-ASR
+
+# Qwen3 TTS (no -a flag needed, auto-detected)
+python convert.py -i /Volumes/Expansion/models/Qwen3-TTS-12Hz-0.6B-Base -t q8_0 -o /Volumes/Expansion/models/qwen3-tts-12hz-0.6b-base.bin --name "Qwen3-TTS"
+```
+
+**Important notes:**
+- chatllm.cpp generates `.bin` files (GGML format), NOT `.gguf` files
+- The `-t q8_0` flag quantizes to 8-bit (recommended for local deployment)
+- Use `--help` to see all quantization options (q4_k_m, q8_0, f16, etc.)
 
 ## Important Notes
 
